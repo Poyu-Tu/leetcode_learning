@@ -50,6 +50,7 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+        # use快慢指針
         now = 0
         next = 0
         while now < len(nums):
