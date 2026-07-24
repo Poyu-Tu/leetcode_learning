@@ -44,24 +44,37 @@
 
 from ast import List
 
+# 覆蓋與手動補零
+# class Solution:
+#     def moveZeroes(self, nums: List[int]) -> None:
+#         """
+#         Do not return anything, modify nums in-place instead.
+#         """
+#         # use快慢指針
+#         now = 0
+#         next = 0
+#         while now < len(nums):
+#             if nums[now] == 0:
+#                 now = now + 1
+#             else:
+#                 nums[next] = nums[now]
+#                 if now > next:
+#                     nums[now] = 0
+#                 now = now + 1
+#                 next = next + 1
+#         print(nums)
 
+# 交換()
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        # use快慢指針
-        now = 0
-        next = 0
-        while now < len(nums):
-            if nums[now] == 0:
-                now = now + 1
-            else:
-                nums[next] = nums[now]
-                if now > next:
-                    nums[now] = 0
-                now = now + 1
-                next = next + 1
+        slow = 0 # 建立慢指針
+        for fast in range(len(nums)):   # 使用for 來操作快指針
+            # 短路求值
+            # 前面檢查當前數字是否為0，後面檢查快慢指針是否同位置，
+            # 順序可顛倒
+            if nums[fast] != 0 and fast != slow:
+                nums[slow], nums[fast] = nums[fast], nums[slow] # 位置的值交換
+                slow = slow + 1 # 交換位置後，將慢指針往後一格
         print(nums)
 
 sol = Solution()

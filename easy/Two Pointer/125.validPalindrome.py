@@ -15,24 +15,52 @@
     # 2.[::-1] >> 可以使用雙指標的新方法，從前面跟後面同時走，直到兩個指標相遇為止。
     # 3.不知道要跑幾次迴圈的 >> 用while true。
 
+# 較耗記憶體
+# class Solution:
+#     def isPalindrome(self, s: str) -> bool:
+#         temp = []
+#         for char in s:
+#             if char.isalnum():
+#                 temp.append(char)
+#         listToStr = "".join(temp) # 用空字串當作「連接符」,把 list 裡每個元素接在一起
+#         cleaned = listToStr.lower() # 轉小寫
+
+#         left = 0
+#         right = len(cleaned) - 1 # 從最後開始
+#         while left < right:
+#             if cleaned[left] == cleaned[right]:
+#                 left = left + 1
+#                 right = right -1
+#             else:
+#                 return False
+#         return True
+
+# 空間最佳化O(1)
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        temp = []
-        for char in s:
-            if char.isalnum():
-                temp.append(char)
-        listToStr = "".join(temp) # 用空字串當作「連接符」,把 list 裡每個元素接在一起
-        cleaned = listToStr.lower() # 轉小寫
-
-        left = 0
-        right = len(cleaned) - 1 # 從最後開始
-        while left < right:
-            if cleaned[left] == cleaned[right]:
+        left, right = 0, len(s) - 1 # # 從最後開始
+        # 當 left == right 時，同一個字元跟自己比較必定相等，
+        # 所以不需要比，迴圈可以直接結束。
+        while left < right: 
+            # 內部過濾迴圈（跳過無效字元）
+            # 裡面再寫一遍left < right為防護機制，
+            # 如果字串裡面全是標點符號（例如 ",,,"），
+            # 手指會一直往中間走，加上這個條件可以防止指標「走過頭」導致陣列越界。
+            # not s[left].isalnum()：代表「不是英數字元」（例如：逗號、句號、空格、驚嘆號等）
+            while left < right and not s[left].isalnum():
                 left = left + 1
-                right = right -1
-            else:
+            while left <right and not s[right].isalnum():
+                right = right - 1
+
+            # 不管大寫小寫，先統一轉成小寫再比對。
+            # 如果發現左邊和右邊的字不一樣，代表絕對不是回文
+            if s[left].lower() != s[right].lower():
                 return False
+            else:
+                left = left + 1
+                right = right - 1
         return True
+
     
 sol = Solution()
 result1 = sol.isPalindrome("A man, a plan, a canal: Panama")

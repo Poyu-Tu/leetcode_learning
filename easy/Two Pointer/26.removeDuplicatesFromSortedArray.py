@@ -26,20 +26,31 @@
     # 如果nums[now] != nums[next-1]，則nums[next] = nums[now]，
     # 然後now加1，next加1
 
+# class Solution:
+#     def removeDuplicates(self, nums: List[int]) -> int:
+#         # use 快慢指針
+#         now = 1 # 因為第0格沒問題(快)
+#         k = 1    # 下一個可以放的位置(慢)
+
+#         while now < len(nums):
+#             if nums[now] == nums[k-1]:   # 如果目前now這格=前一格的數值
+#                 now = now + 1
+#             else:
+#                 nums[k] = nums[now]
+#                 now = now + 1
+#                 k = k + 1
+#         return k
+
+# 減少寫很多重複的 now = now + 1
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        # use 快慢指針
-        now = 1 # 因為第0格沒問題
-        k = 1    # 下一個可以放的位置
-
-        while now < len(nums):
-            if nums[now] == nums[k-1]:   # 如果目前now這格=next前一格的數值
-                now = now + 1
-            else:
+        k = 1   # 下一個可以放的位置(慢)
+        for now in range(1, len(nums)):
+            if nums[now] != nums[k-1]:  # 發現與前一個填好的數字不同
                 nums[k] = nums[now]
-                now = now + 1
                 k = k + 1
         return k
+
     
 sol = Solution()
 result1 = sol.removeDuplicates([1,1,2])
