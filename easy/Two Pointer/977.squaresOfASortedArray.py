@@ -35,7 +35,7 @@ class Solution:
         right = len(nums) - 1
         position = len(nums) - 1
 
-        result = [0] * len(nums)
+        result = [0] * len(nums)    # # 必須預先配置list中所有位置的值，不能用 append
 
         while left <= right:
             l_square = nums[left] ** 2

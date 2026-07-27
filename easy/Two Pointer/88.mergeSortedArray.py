@@ -68,9 +68,9 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        m_end = m - 1
-        n_end = n - 1
-        n1_end = (m + n) - 1
+        m_end = m - 1   # nums1 有效資料的尾端
+        n_end = n - 1   # nums2 的尾端
+        n1_end = (m + n) - 1    # 要填入的位置
 
         while n_end >= 0:
             if m_end < 0:   # ① nums1 空了 → 直接搬 nums2

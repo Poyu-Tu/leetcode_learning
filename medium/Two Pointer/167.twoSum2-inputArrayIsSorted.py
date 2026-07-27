@@ -27,6 +27,7 @@ class Solution:
                 left = left + 1
             else:
                 right = right - 1
+        return []
 
 sol = Solution()
 result1 = sol.twoSum([2,7,11,15], 9)
