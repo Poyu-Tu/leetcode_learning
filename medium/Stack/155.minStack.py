@@ -27,14 +27,22 @@ class MinStack:
         self.min_stack = []
 
     def push(self, value: int) -> None:
+        # 原本寫法
+        # self.stack.append(value)
+        # if not self.min_stack:  # self.min_stack裡沒有值
+        #     self.min_stack.append(value)    # 把value加進去
+        # elif value <= self.min_stack[-1]:   # 現在的值<=self.min_stack頂端的值
+        #     self.min_stack.append(value)    # 把value加進去
+        # else:
+        #     self.min_stack.append(self.min_stack[-1])   # 把目前頂端的值加進去
+
+        # 可以使用min(a, b)這個方法優化
         self.stack.append(value)
         if not self.min_stack:  # self.min_stack裡沒有值
-            self.min_stack.append(value)    # 把value加進去
-        elif value <= self.min_stack[-1]:   # 現在的值<=self.min_stack頂端的值
-            self.min_stack.append(value)    # 把value加進去
+            self.min_stack.append(value)
         else:
-            self.min_stack.append(self.min_stack[-1])   # 把目前頂端的值加進去
-
+            self.min_stack.append(min(value, self.min_stack[-1]))
+            
     # push 無條件新增，那pop必須也要無條件移除
     def pop(self) -> None:
         self.stack.pop()
