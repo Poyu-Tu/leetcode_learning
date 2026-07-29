@@ -19,6 +19,7 @@ class Solution:
         t_stack = self._pushAndPop(t)
 
         return s_stack == t_stack   # 比較後回傳true或false
+                                    # 比較發現第一個就不一樣，馬上回 False，不看後面
     
     # 將s跟t都在做的事定義成一個方法
     # 因為是在class底下建立一個函式，所以第一個參數一定是self
