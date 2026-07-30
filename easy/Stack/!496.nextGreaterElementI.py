@@ -58,6 +58,7 @@
     # 然後把新數字自己推進堆疊。
         # 帶出一個規律：迴圈跑完後，還留在堆疊裡的人，答案通通是 -1。
 
+# 真正的計算全部發生在 nums2，nums1 只是「查答案」。
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         # 掃一次 nums2，用單調遞減堆疊算出每個數字的答案，存進字典
