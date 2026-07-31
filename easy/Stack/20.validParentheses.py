@@ -55,7 +55,7 @@
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        pairs = {
+        pairs = {   # 右括號 → 對應的左括號
             ')': '(',
             ']': '[',
             '}': '{'
@@ -64,7 +64,7 @@ class Solution:
 
         for char in s:  # 右括號
             if char in pairs:
-                if len(stack) == 0:
+                if not stack:
                     return False
                 else:
                     sp = stack.pop()    # 拿堆頂得出來比較
@@ -73,7 +73,7 @@ class Solution:
                     # 配對成功不用做任何事
             else:   # 左括號
                 stack.append(char) 
-        if len(stack) == 0:
+        if not stack:
             return True
         else:
             return False
