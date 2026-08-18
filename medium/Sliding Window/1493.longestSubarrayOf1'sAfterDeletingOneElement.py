@@ -9,9 +9,42 @@
     # 當窗口中 0 的數量超過 1 時，縮小窗口的左邊界，直到窗口中只剩下一個 0。
     # 使用int變數來去紀錄0的數量，並且使用兩個指標來維護窗口的左右邊界。
         # 移入右邊界時，若遇到0則計數器加1。
-        # 移動左邊界時，若遇到0則計數器減1。
+        # 移出左邊界時，若遇到0則計數器減1。
     # 在迴圈中，當變數 > 1時收縮
     # 因為要記錄最大的連續1的長度，所以每次收縮完時，計算當前窗口的長度，並更新最大值。
     # 這邊不需要if，因為不管有沒有0，窗口的長度都可以計算，因為題目要求刪除一個元素，所以最終結果要減1。
         # 都是視窗長度 - 1，因為要刪除一個元素。
         # 也就是(right - left + 1) - 1 = right - left
+
+class Solution:
+    def longestSubarray(self, nums: list[int]) -> int:
+        zero_count = 0  # window
+        left = 0
+        max_len = 0
+
+        # 走過所有nums的index，記錄到right
+        for right in range(len(nums)):
+            # right 遇到 0 的話 >> 變數+1 >> 移入 
+            if nums[right] == 0:
+                zero_count = zero_count + 1
+
+            # 當變數 > 1時收縮
+            while zero_count > 1:
+                # 左邊的值=0 >> 變數-1 >> 移出
+                if nums[left] == 0:
+                    zero_count = zero_count - 1
+                left = left + 1
+            # 比較這次跟上次誰比較大
+            # 不管有沒有0，最後都是剩下長度，但規定一定要刪除一個，所以長度要再減一
+            max_len = max(max_len, (right - left + 1) - 1) 
+
+        return max_len
+
+sol = Solution()
+result1 = sol.longestSubarray([1,1,0,1])
+result2 = sol.longestSubarray([0,1,1,1,0,1,1,0,1])
+result3 = sol.longestSubarray([1,1,1])
+result4 = sol.longestSubarray([0,0,0])
+
+print(result1, result2, result3, result4)
+
