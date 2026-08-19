@@ -24,3 +24,34 @@
         # 但此時的subarray長度的答案，必定不是我們要的最小，會抓不到達標當下的長度，會收縮並錯過
         # 所以記錄這件事要放在while，當合法就去紀錄
         # 順序是，先記錄，在收縮，因為收縮後的長度一定會比達標時的長度小，所以要先記錄達標時的長度，再去收縮。
+
+    # 設定兩變數：window_sun = 0、min_len = 無限大float('inf')，因為這邊比小，如果設為0，則為最強的。
+    # 如果target很大，大到整個陣列全部加起來都不夠(例如 nums = [1,2,3],target = 100)，但題目要求「如果不存在,回傳 0」
+        # 所以寫一個判斷式，如果min_len == 無限大，則設為0
+
+class Solution:
+    def minSubArrayLen(self, target: int, nums: list[int]) -> int:
+        
+        left = 0
+        window_sum = 0  # 視窗總和
+        min_len = float('inf')  # 預設無限大，紀錄最小的長度
+
+        for right in range(len(nums)):
+            window_sum = window_sum + nums[right]   # 加入視窗
+
+            while window_sum >= target: # 合法就收縮
+                min_len = min(min_len, (right - left) + 1)  # 紀錄最小值
+                window_sum = window_sum - nums[left]    # 將最左邊在視窗總和中的值移出
+                left = left + 1 # 左邊收縮
+
+        if min_len == float('inf'): # 如果最小值仍為無限大
+            return 0   # 回傳0，不存在
+        else:
+            return min_len
+
+sol = Solution()
+result1 = sol.minSubArrayLen(target = 7, nums = [2,3,1,2,4,3])
+result2 = sol.minSubArrayLen(target = 4, nums = [1,4,4])
+result3 = sol.minSubArrayLen(target = 11, nums = [1,1,1,1,1,1,1,1])
+
+print(result1, result2, result3)
